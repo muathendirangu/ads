@@ -13,6 +13,10 @@ import {
 import {
     notFoundHandler
 } from './middleware/notfound.middleware';
+import {
+    balancesRouter
+} from './balances.router';
+
 dotenv.config();
 /**
  *
@@ -30,7 +34,7 @@ export const app = express();
  *
  */
 
-const balancesRouter: Router = express.Router();
+
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
