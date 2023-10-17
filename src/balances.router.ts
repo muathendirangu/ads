@@ -5,44 +5,54 @@ import express, {
     Router,
     Request,
     Response
-} from 'express';
-import {
-    v4 as uuidv4,
-} from 'uuid';
+ } from 'express';
 
-import {
-    Balance
-} from './balance.interface';
-
-/**
- *
- * import the logging middleware
- *
- */
-import {
+ /**
+  *
+  * import the logging middleware
+  *
+  */
+ import {
     logger
-} from './middleware/logging.middleware';
+ } from './middleware/logging.middleware';
+ import {
+    fetchBalance
+ } from './balances.service';
 
-/**
- * Router Definition
- */
-export const balancesRouter: Router = express.Router();
-/**
- * request handlers definitions
- */
-// GET balances
+ /**
+  * Router Definition
+  */
+ export const balancesRouter: Router = express.Router();
+ /**
+  * request handlers definitions
+  */
+ // GET balances
 
-balancesRouter.get('/', async (req: Request, res: Response) => {
+ balancesRouter.get('/', async (req: Request, res: Response) => {
     try {
+       const balanceMap: Record < string, string > = {};
+       const {
+          addresses
+       } = req.body;
+       if (!Array.isArray(addresses) && addresses.length != 0) {
+          logger.info(`status:${400} => GET balances request failed error: Kindly provide at least one address as an array`);
+          res.status(400).send({
+             "error": "Kindly provide at least one address as an array"
+          });
+          return
 
-        logger.info(`status:${res.statusCode} => GET all balances request completed successfully`);
-        res.status(200).send({
-            "balance":12
-        });
-        return
+       } else {
+          addresses.forEach(async (address: string) => {
+             const balance = await fetchBalance(address);
+             balanceMap[address] = balance;
+          });
+       }
+       logger.info(`status:${res.statusCode} => GET all balances request completed successfully`);
+       res.status(200).send(balanceMap);
+       return
     } catch (error) {
-        logger.error(`status:${res.statusCode} => GET all balances request failed with error:${error}`);
-        res.status(500).send(error);
-        return
+       logger.error(`status:${res.statusCode} => GET all balances request failed with error:${error}`);
+       res.status(500).send(error);
+       return
     }
-});
+ });
