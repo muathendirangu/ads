@@ -4,8 +4,15 @@
  *
  */
 import * as dotenv from 'dotenv';
-import { ethers } from 'ethers';
+import {
+   ethers,
+} from 'ethers';
+
+import {
+   logger
+} from './middleware/logging.middleware';
 import formatNumber from './utils/formatNumber';
+
 dotenv.config();
 
 /**
@@ -18,8 +25,8 @@ dotenv.config();
  *
  */
 const provider = new ethers.AlchemyProvider(
-    process.env.NETWORK,
-    process.env.ALCHEMY_API_KEY
+   process.env.NETWORK,
+   process.env.ALCHEMY_API_KEY
 );
 
 
@@ -28,16 +35,17 @@ const provider = new ethers.AlchemyProvider(
  * @param address: string
  *
  */
+export async function fetchBalance(address: string): Promise < string > {
+   if (!validateAddress(address)) {
+         logger.error(`Invalid address: ${address}`);
+         return "Invalid address";
+   }
 
+   logger.info(`Fetching balance for address: ${address}`);
+   let balance = await provider.getBalance(address);
+   let formattedBalance = await formatNumber(ethers.formatEther(balance));
 
-export async function fetchBalance(address:string): Promise<string> {
-    if (validateAddress(address)){
-        throw new Error("Invalid address");
-    }
-
-    let balance =  await provider.getBalance(address);
-    let formattedBalance = await formatNumber(balance);
-    return formattedBalance;
+   return formattedBalance;
 }
 
 
@@ -46,6 +54,9 @@ export async function fetchBalance(address:string): Promise<string> {
  * @param address: string
  *
  */
-const validateAddress = (address:string): boolean => {
-    return ethers.isAddress(address);
+const validateAddress = async (address: string): Promise < boolean > => {
+   logger.info("Validating address: " + address);
+   return ethers.isAddress(address);
 }
+
+

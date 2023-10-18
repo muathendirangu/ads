@@ -4,50 +4,27 @@
  *
  * @param num: string
  *
- * @returns formatted number
+ * @returns formatted number Promise<string>
  */
 export default async function formatNumber(num: string): Promise<string> {
-   // Check if the input is a string.
-  if (typeof num !== 'string') {
-    throw new Error('Invalid input');
+    // Convert the input string to a number
+  let number = parseFloat(num);
+
+  if (isNaN(number)) {
+    // If the input is not a valid number, return '0'
+    return '0';
   }
 
-  // Convert the input to a number.
-  let numberForm = parseFloat(num);
+  // Ensure at least 2 decimal places and 4 significant figures
+  const formattedNumber = number.toFixed(4);
 
-  // Split the number string into its integer and decimal parts.
-  let [integerPart, decimalPart] = num.split('.');
+  // Use a comma for the thousands separator
+  const [integerPart, decimalPart] = formattedNumber.split('.');
+  const integerWithCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  // Format the number parts.
-  const formattedNumber = formatNumberParts(integerPart, decimalPart);
+  // Remove any trailing zeros after the decimal place
+  const trimmedNumber = decimalPart.replace(/0+$/, '');
 
-  // Return the formatted number.
-  return formattedNumber;
+  return trimmedNumber.length > 0 ? `${integerWithCommas}.${trimmedNumber}` : integerWithCommas;
 }
 
-
-function formatNumberParts(integerPart: string, decimalPart: string): string {
-  // Check if the integer part is greater than or equal to 10,000.
-  // If it is, we need to add a leading zero to the decimal part.
-  if (integerPart.length >= 5) {
-    decimalPart = '0' + decimalPart;
-  }
-
-  // Check if the decimal part has at least 2 digits.
-  // If it doesn't, we need to add trailing zeros.
-  if (decimalPart.length < 2) {
-    decimalPart += '0'.repeat(2 - decimalPart.length);
-  }
-
-  // Check if the decimal part has more than 4 significant digits.
-  // If it does, we need to round the number.
-  if (decimalPart.length > 4) {
-    decimalPart = decimalPart.substring(0, 4);
-  }
-
-  // Remove any trailing zeros after the decimal place.
-  decimalPart = decimalPart.replace(/0+$/, '');
-
-  // Return the formatted number.
-  return `${integerPart}.${decimalPart}`;
-}

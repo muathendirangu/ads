@@ -10,8 +10,4 @@
     return array.some((item) => item === '');
  }
 
- export function containsNon42CharacterString(array: any[]): boolean {
-    return array.some((item) => item.length !== 42);
- }
-
 
