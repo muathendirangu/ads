@@ -64,7 +64,7 @@ balancesRouter.get('/', async (req: Request, res: Response) => {
       }
 
       if (containsEmptyString(addresses)) {
-         validationErrors.push("address values should not be empty strings");
+         validationErrors.push("address values provided should not be empty strings");
       }
 
       if (validationErrors.length > 0) {

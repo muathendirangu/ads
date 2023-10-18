@@ -15,6 +15,10 @@ import formatNumber from './utils/formatNumber';
 
 dotenv.config();
 
+// define the Types of Address and Balance
+type Address = string;
+type Balance = string;
+
 /**
  *
  * initialize the provider
@@ -32,13 +36,14 @@ const provider = new ethers.AlchemyProvider(
 
 /**
  * Get the balance given an address
- * @param address: string
+ * @param address: Address
  *
  */
-export async function fetchBalance(address: string): Promise < string > {
-   if (!validateAddress(address)) {
-         logger.error(`Invalid address: ${address}`);
-         return "Invalid address";
+export async function fetchBalance(address: Address): Promise<Balance> {
+   let check = await validateAddress(address);
+   if (!check) {
+      logger.error(`Invalid address: ${address}`);
+      return "Invalid address";
    }
 
    logger.info(`Fetching balance for address: ${address}`);
@@ -51,12 +56,18 @@ export async function fetchBalance(address: string): Promise < string > {
 
 /**
  * Validate the address
- * @param address: string
+ * @param address: Address
  *
  */
-const validateAddress = async (address: string): Promise < boolean > => {
+const validateAddress = async (address: Address): Promise < boolean> => {
+   if (address.includes(".")) {
+      logger.info("Validating address given ENS: " + address);
+      const ensAddress = await provider.resolveName(address)
+      if (ensAddress) {
+         return true;
+      }
+      return false;
+   }
    logger.info("Validating address: " + address);
    return ethers.isAddress(address);
 }
-
-
