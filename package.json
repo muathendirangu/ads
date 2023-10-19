@@ -4,10 +4,11 @@
     "description": "a web server that allows the user to request the balance of ethereum addresses",
     "main": "index.js",
     "scripts": {
-        "build": "tsc -p .",
+        "build": "rimraf dist && tsc",
         "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
         "test": "mocha -r ts-node/register tests/*.ts tests/*.*.*ts --require dotenv/config --exit",
-        "start": "node dist/src/index.js"
+        "start": "cross-env NODE_ENV=production node dist/src/index.js",
+        "prestart": "npm run build"
     },
     "repository": {
         "type": "git",
@@ -29,10 +30,12 @@
     "homepage": "https://github.com/muathendirangu/address-balance#readme",
     "dependencies": {
         "cors": "^2.8.5",
+        "cross-env": "^7.0.3",
         "dotenv": "^16.3.1",
         "ethers": "^6.8.0",
         "express": "^4.18.2",
         "helmet": "^7.0.0",
+        "rimraf": "^5.0.5",
         "sqlite3": "^5.1.6",
         "uuid": "^9.0.1",
         "winston": "^3.11.0"
