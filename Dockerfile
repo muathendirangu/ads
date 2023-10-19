@@ -1,6 +1,5 @@
 
 FROM node:20-alpine AS base
-RUN apk add --no-cache python make g++
 WORKDIR /app
 COPY . /app
 RUN npm install \
