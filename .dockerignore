@@ -29,7 +29,12 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 **/build
-**/dist
+.dockerignore
+dist
 LICENSE
 README.md
 node_modules
+Dockerfile
+.env
+.gitignore
+.git

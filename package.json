@@ -4,8 +4,10 @@
     "description": "a web server that allows the user to request the balance of ethereum addresses",
     "main": "index.js",
     "scripts": {
+        "build": "tsc -p .",
         "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
-        "test": "mocha -r ts-node/register --watch --watch-files  tests/*.ts tests/*.*.*ts --require dotenv/config"
+        "test": "mocha -r ts-node/register tests/*.ts tests/*.*.*ts --require dotenv/config --exit",
+        "start": "node dist/index.js"
     },
     "repository": {
         "type": "git",
