@@ -36,6 +36,18 @@ import {
    fetchAddressBalances
 } from './balances.controller';
 
+/**
+ *
+ *
+ * import the type definitions
+ *
+ */
+import {
+   Address,
+   Balance,
+   ValidationErrors
+} from './balances.types';
+
 
 /**
  * Router Definition
@@ -54,32 +66,32 @@ balancesRouter.get('/', async (req: Request, res: Response) => {
          addresses
       } = req.body;
 
-      let validationErrors: string[] = [];
+      let validationErrors: ValidationErrors = {errors: []};
 
       if (!isArray(addresses)) {
-         validationErrors.push("request payload should be an json object containing an array of addresses named addresses");
+         validationErrors.errors.push("request payload should be an json object containing an array of addresses named addresses");
       }
       if (isEmpty(addresses)) {
-         validationErrors.push("addresses array should be not be empty");
+         validationErrors.errors.push("addresses array should be not be empty");
       }
 
       if (containsEmptyString(addresses)) {
-         validationErrors.push("address values provided should not be empty strings");
+         validationErrors.errors.push("address values provided should not be empty strings");
       }
 
-      if (validationErrors.length > 0) {
-          const errorMessage = `Invalid addresses: ${validationErrors.join(', ')}`;
+      if (validationErrors.errors.length > 0) {
+          const errorMessage = `Invalid addresses: ${validationErrors.errors.join(', ')}`;
       logger.info(`status:${400} => GET balances request failed error: ${errorMessage}`);
       res.status(400).send({
          "error": errorMessage,
       });
       return;
        }
-      const response = await fetchAddressBalances(addresses);
+      const response: Record<Address, Balance> = await fetchAddressBalances(addresses);
       logger.info(`status:${res.statusCode} => GET all balances request completed successfully`);
       res.status(200).send(response);
       return
-   } catch (error) {
+   } catch (error: any) {
       logger.error(`status:${500} => GET all balances request failed with error:${error}`);
       res.status(500).send(error);
       return
