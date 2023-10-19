@@ -1,0 +1,29 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Building and testing the app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: install the dependencies
+      - run: npm ci
+      - name: build the app
+      - run: npm run build --if-present
+      - name: run tests
+      - run: npm test
+  deploy:
+    name: Deploying the app app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
