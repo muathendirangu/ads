@@ -2,17 +2,13 @@
 A web server to fetch address balances either via an address or an ENS(Ethereum Name Service) domain name.
 
 # You can test application in the following ways
-   1. Using Postman
-   2. Running locally and testing vial curl.
-   3. Import postman.json to directly to postman(contained in the root folder of the repo).
-   4. There is also an openapi.yaml file that can be imported too other HTTP clients like Insomnia by making HTTP requests to the API endpoints described in the OpenAPI specification.
-
-## 1. Using Postman
-
-        [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3655747-ab738743-c5bd-434e-9c3d-73793725aa4c?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D3655747-ab738743-c5bd-434e-9c3d-73793725aa4c%26entityType%3Dcollection%26workspaceId%3D179387e0-c762-408d-9697-3e37633b91ca#?env%5Bbalance%20service%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL2FkZHJlc3MtYmFsYW5jZS1wcm9kdWN0aW9uLnVwLnJhaWx3YXkuYXBwLyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cHM6Ly9hZGRyZXNzLWJhbGFuY2UtcHJvZHVjdGlvbi51cC5yYWlsd2F5LmFwcC8iLCJzZXNzaW9uSW5kZXgiOjB9XQ==)
+   1. Running locally and testing vial curl.
+   2. Import postman.json to directly to postman(contained in the root folder of the repo).
+   3. There is also an openapi.yaml file that can be imported too other HTTP clients like Insomnia by making HTTP requests to the API endpoints described in the OpenAPI specification.
 
 
-## 2. Running locally and testing via curl
+
+## Running locally and testing via curl
 
 To get started:
 
@@ -37,25 +33,23 @@ The API has one endpoints:
 The following example shows how to get all balances belonging to a list of addresses provided:
 
 > ** Sample Request
-```
-curl --location 'http://localhost:9000/api/balances'
-```
 
 ```
-{
+curl --location --request GET 'https://address-balance-production.up.railway.app//api/balances' \
+--data '{
     "addresses": [
         "james.eth",
         "kevin.eth",
         "sam.eth",
         "keneth",
         "455656",
-         "0xd8dA6BF26964334aF9D7eEd9e03E53415D37aA96045",
+         "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
         "vitalik.eth",
         "0x4687466ac9bD165cA3bF2F6b6446822560b9fC3d",
         "michael.eth",
         "12"
     ]
-}
+}'
 
 ```
 > **Response
