@@ -1,5 +1,5 @@
 
-FROM node:18-bookworm-slim as base
+FROM node:20-buster-slim as base
 
 WORKDIR /app
 
