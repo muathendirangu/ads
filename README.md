@@ -8,7 +8,7 @@ A web server to fetch address balances either via an address or an ENS(Ethereum 
    4. There is also an openapi.yaml file that can be imported too other HTTP clients like Insomnia by making HTTP requests to the API endpoints described in the OpenAPI specification.
 
 ## 1. Using Postman
-    - If you have postman installed locally you can click the button below to open the collection in Postman
+
         [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3655747-ab738743-c5bd-434e-9c3d-73793725aa4c?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D3655747-ab738743-c5bd-434e-9c3d-73793725aa4c%26entityType%3Dcollection%26workspaceId%3D179387e0-c762-408d-9697-3e37633b91ca#?env%5Bbalance%20service%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL2FkZHJlc3MtYmFsYW5jZS1wcm9kdWN0aW9uLnVwLnJhaWx3YXkuYXBwLyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cHM6Ly9hZGRyZXNzLWJhbGFuY2UtcHJvZHVjdGlvbi51cC5yYWlsd2F5LmFwcC8iLCJzZXNzaW9uSW5kZXgiOjB9XQ==)
 
 
