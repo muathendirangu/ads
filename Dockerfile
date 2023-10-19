@@ -1,5 +1,5 @@
 
-FROM node:20-buster-slim as base
+FROM node:20-alpine as base
 
 WORKDIR /app
 
