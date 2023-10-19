@@ -1,7 +1,5 @@
 name: Node.js CI
-
 on: [push]
-
 jobs:
   build:
     name: Building and testing the app
