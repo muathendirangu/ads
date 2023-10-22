@@ -12,8 +12,9 @@ To get started:
 
 1. first clone the repo using `git clone https://github.com/muathendirangu/address-balance.git`.
 2. access directory `cd address-balance`.
-3. Install dependencies `npm install`
-4. Start the server `npm start`
+3. Rename `.env.example` to .`.env` and update the environment variables(for the network you can default to `homestead` but for the API key you need to create an alchemy app and grab the API key from the settings section and update on the `.env` file)
+4. Install dependencies `npm install`
+5. Start the server `npm start`
 
 The API will be running on port 9000 by default. You can access the API in your browser using the following URL:
 
