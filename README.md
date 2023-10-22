@@ -16,9 +16,10 @@ To get started:
 4. Install dependencies `npm install`
 5. Start the server `npm start`
 
-The API will be running on port 9000 by default. You can access the API in your browser using the following URL:
 
-http://localhost:9000
+##### base url
+   1. http://localhost:9000 (testing when the web server is running locally)
+   2.  https://address-balance-production.up.railway.app (testing using hosted web server)
 
 #### Endpoints
 
@@ -33,7 +34,7 @@ The following example shows how to get all balances belonging to a list of addre
 
 ##### Request
 ```
-curl --location --request GET 'https://address-balance-production.up.railway.app//api/balances' \
+curl --location --request GET 'http://localhost:9000/api/balances' \
 --data '{
     "addresses": [
         "james.eth",
