@@ -1,5 +1,5 @@
 # address-balance
-A web server to fetch address balances either via an address or an ENS(Ethereum Name Service) domain name.
+A web server to fetch address balances either via an address or an ENS(Ethereum Name Service) domain name. 
 
 ## You can run and test application in the following ways
    1. Testing locally via curl
@@ -77,6 +77,12 @@ curl --location --request GET 'http://localhost:9000/api/balances' \
 
 > Run the following command on the terminal: `npm test`
 
+### Improvements.
+1. Improve format logic of the balance.
+2.  Add more unit tests i.e the format of balances more tests to verify all edge cases.
+3. Observability i.e Add tracing for http requests in order to identify bottlenecks such as latency.
+4. Add support for multiple providers to increase resiliency in case one provider is down.
+   
 #### Technologies used
  1. `TypeScript` - for type safety and compile-time type checking
  1. `Node.js` runtime
