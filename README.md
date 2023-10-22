@@ -1,14 +1,17 @@
 # address-balance
 A web server to fetch address balances either via an address or an ENS(Ethereum Name Service) domain name.
 
-# You can test application in the following ways
+## You can test application in the following ways
    1. Running locally and testing vial curl.
-   2. Import postman.json to directly to postman(contained in the root folder of the repo).
-   3. There is also an openapi.yaml file that can be imported too other HTTP clients like Insomnia by making HTTP requests to the API endpoints described in the OpenAPI specification.
+   2. Import API collection json file(postman.json) to directly to postman.
+            1. The file is in the root folder
+            2. Once the collection is successfully imported, you can test the API using the collection in Postman.
+            3. Just replace the `{{url}}` bit with `https://address-balance-production.up.railway.app` to point to the server hosted on Railway.
 
 
 
-## Running locally and testing via curl
+
+## 1. Running locally and testing via curl
 
 To get started:
 
@@ -21,14 +24,14 @@ The API will be running on port 9000 by default. You can access the API in your 
 
 http://localhost:9000
 
-# Endpoints
+## Endpoints
 
 The API has one endpoints:
 
 1. `/api/balances` - Get a map containing address balances given a list of addresses.
 
 
-# Testing via curl
+### Testing via curl
 
 The following example shows how to get all balances belonging to a list of addresses provided:
 
@@ -69,11 +72,11 @@ curl --location --request GET 'https://address-balance-production.up.railway.app
 }
 ```
 
-# To run Integration Tests
-To run test run the command
+### To run Integration Tests
+
 > Run the following command on the terminal: `npm test`
 
-## Technologies used
+#### Technologies used
  1. TypeScript - for type safety and compile-time type checking
  1. Node.js runtime
  2. Express.js - for running the web server
