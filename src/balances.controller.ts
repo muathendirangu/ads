@@ -12,7 +12,7 @@ import {
 
  const balanceService = new BalanceService();
 
- export async function fetchAddressBalances(addresses: Address[]): Promise < Record <Address, Balance>> {
+ export async function fetchAddressBalances(addresses: Address[]): Promise <Record <Address, Balance>> {
     const balancePromises = addresses.map((address: Address) => balanceService.fetchBalance(address));
     const balances = await Promise.all(balancePromises);
 

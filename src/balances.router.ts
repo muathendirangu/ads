@@ -58,7 +58,7 @@ export const balancesRouter: Router = express.Router();
 /**
  * request handler definition
  */
-// GET balances
+// GET addresses balances
 
 balancesRouter.get('/', async (req: Request, res: Response) => {
    try {

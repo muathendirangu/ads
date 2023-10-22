@@ -1,30 +1,46 @@
+
 /**
  *
  * format number to four significant figures
  *
- * @param num: string
+ * @param num: stringscientific-to-decimal
  *
  * @returns formatted number Promise<string>
  */
 export default async function formatNumber(num: string): Promise<string> {
-    // Convert the input string to a number
-  let number = parseFloat(num);
+  let numberStr = parseFloat(num);
 
-  if (isNaN(number)) {
-    // If the input is not a valid number, return '0'
+  if (isNaN(numberStr)) {
     return '0';
   }
+  if(num.includes('.')){
+    let [integerPart, decimalPart] = num.split('.');
+    let formatted = parseFloat(`${integerPart}.${decimalPart}`);
+    if(integerPart.length < 4){
+      if (integerPart==="0") {
+        return formatFourSignificantFigures(formatted);
+      }else if(num.length >= 6){
+        return  formatFourSignificantFigures(formatted).replace(/0+$/, '')
+      }
+      let form = formatFourSignificantFigures(formatted)
+      let res = form.replace(/0+$/, '');
+      console.log("result", res);
+      return res;
+    }
+    integerPart = parseFloat(`${integerPart}.${decimalPart}`).toFixed(2);
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    decimalPart = decimalPart.replace(/0+$/, '');
 
-  // Ensure at least 2 decimal places and 4 significant figures
-  const formattedNumber = number.toFixed(4);
+    return `${integerPart}.${decimalPart}`;
+  }
 
-  // Use a comma for the thousands separator
-  const [integerPart, decimalPart] = formattedNumber.split('.');
-  const integerWithCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+return "0";
+}
 
-  // Remove any trailing zeros after the decimal place
-  const trimmedNumber = decimalPart.replace(/0+$/, '');
 
-  return trimmedNumber.length > 0 ? `${integerWithCommas}.${trimmedNumber}` : integerWithCommas;
+function formatFourSignificantFigures(number: number): string {
+  // Round the number to 4 significant figures
+  return number.toPrecision(4);
+
 }
 
